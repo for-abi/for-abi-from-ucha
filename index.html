@@ -11,7 +11,7 @@
         font-family:'Arial', sans-serif;
         overflow:hidden;
         background: 
-            linear-gradient(rgba(27,27,47,0.7), rgba(58,15,77,0.7)), 
+            linear-gradient(rgba(27,27,47,0.7), rgba(58,15,77,0.7)),
             url(https://cdn.discordapp.com/attachments/1100110485661167728/1462841938922442794/3710.jpg?ex=696fa938&is=696e57b8&hm=4b9a27d7e456840bdd70643ee151117be8c518536af2ca594a0a24a7699897b0) center/cover no-repeat;
         color: #a0ff7a;
         display:flex;
@@ -20,7 +20,6 @@
         perspective:1200px;
     }
 
-    /* Card Container */
     .card-container {
         position:relative;
         width:90%;
@@ -28,7 +27,6 @@
         height:80%;
     }
 
-    /* Cards */
     .card {
         position:absolute;
         width:100%;
@@ -48,6 +46,7 @@
         cursor:pointer;
         opacity:0;
         transform: scale(0.8) rotateY(15deg);
+        z-index:0;
     }
 
     .card.active {
@@ -89,7 +88,7 @@
         50% { transform: scale(1.2); opacity:1; }
     }
 
-    /* Typing effect */
+    /* Typing animation */
     .typing span {
         display:inline-block;
         opacity:0;
@@ -140,6 +139,7 @@
         justify-content:center;
         margin-top:20px;
     }
+
 </style>
 </head>
 <body>
@@ -167,7 +167,6 @@
         <div class="photo-container">
             <div class="photo-heart"><img src="YOUR_PICTURE_URL_1" alt="Photo"></div>
             <div class="photo-heart"><img src="YOUR_PICTURE_URL_2" alt="Photo"></div>
-            <!-- Add more hearts here -->
         </div>
     </div>
 
@@ -187,6 +186,7 @@
     const cards = document.querySelectorAll('.card');
     let current = 0;
 
+    // Typing function
     function typeText(element, text) {
         element.innerHTML = '';
         [...text].forEach((char,i)=>{
@@ -197,6 +197,7 @@
         });
     }
 
+    // Initialize typing on all cards
     cards.forEach(card => {
         const p = card.querySelector('.typing');
         if(p) typeText(p, p.dataset.text);
@@ -208,11 +209,17 @@
             cards[current].classList.add('hidden-left');
             current++;
             cards[current].classList.add('active');
+
+            // Trigger typing for new card
+            const p = cards[current].querySelector('.typing');
+            if(p) typeText(p, p.dataset.text);
         }
     }
 
+    // Click & swipe support
     cards.forEach(card=>{
         card.addEventListener('click', showNextCard);
+
         let touchstartX=0, touchendX=0;
         card.addEventListener('touchstart', e=>{ touchstartX = e.changedTouches[0].screenX; });
         card.addEventListener('touchend', e=>{
