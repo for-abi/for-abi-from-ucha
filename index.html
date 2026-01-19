@@ -6,86 +6,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* { box-sizing: border-box; }
-
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at top, #34155b, #0b1f17);
+  background: linear-gradient(135deg, #2b1247, #0b1f17);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Segoe UI", sans-serif;
+  font-family: system-ui, sans-serif;
   color: white;
-  overflow: hidden;
 }
 
 /* CARD */
 .card {
-  width: 340px;
+  width: 330px;
   min-height: 460px;
   background: linear-gradient(145deg, #4b1f6f, #1a3d2f);
   border-radius: 22px;
-  padding: 26px;
-  box-shadow: 0 0 40px rgba(0,255,180,0.35);
+  padding: 24px;
+  box-shadow: 0 0 35px rgba(0,255,180,0.35);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
   cursor: pointer;
-  animation: appear 0.6s ease;
+  transition: transform 0.3s ease;
 }
 
-@keyframes appear {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+.card:active {
+  transform: scale(0.98);
 }
 
-.card h2 {
+h2 {
   color: #c8ffd9;
+  margin: 0;
 }
 
-.card p {
-  line-height: 1.5;
-  font-size: 0.95rem;
-}
-
-/* HEART IMAGE */
-.heart-img {
-  width: 110px;
-  height: 110px;
-  margin: 10px auto;
-  background-size: cover;
-  background-position: center;
-  clip-path: path("M55 105 C15 75 0 50 15 30 A25 25 0 0 1 55 35 A25 25 0 0 1 95 30 C110 50 95 75 55 105 Z");
-  box-shadow: 0 0 25px rgba(255,120,200,0.45);
-}
-
-/* MULTI HEART GALLERY */
-.gallery {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.tap {
+/* COUNTER */
+#counter {
   font-size: 0.75rem;
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+
+/* IMAGE AREA */
+#images img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 10px auto;
+  display: block;
+  box-shadow: 0 0 15px rgba(0,255,180,0.4);
+}
+
+/* HEART SHAPE (optional fallback) */
+.heart {
+  width: 90px;
+  height: 90px;
+  margin: 10px auto;
+  background: pink;
+  clip-path: polygon(
+    50% 90%,
+    100% 40%,
+    75% 10%,
+    50% 25%,
+    25% 10%,
+    0 40%
+  );
+}
+
+/* TAP TEXT */
+.tap {
+  font-size: 0.8rem;
   opacity: 0.7;
-}
-
-/* FLOATING HEARTS */
-.float-heart {
-  position: absolute;
-  bottom: -20px;
-  color: #ff8ad8;
-  animation: float 6s linear infinite;
-  opacity: 0.6;
-}
-
-@keyframes float {
-  from { transform: translateY(0); }
-  to { transform: translateY(-110vh); }
 }
 </style>
 </head>
@@ -93,80 +87,97 @@ body {
 <body>
 
 <div class="card" id="card">
-  <h2 id="title">Hello my love 💜</h2>
-  <div id="images"></div>
+  <h2 id="title">Hey my love 💜</h2>
+  <div id="counter">💌 4 cards left</div>
+
+  <div id="images">
+    <div class="heart"></div>
+  </div>
+
   <p id="text">
-    You already know who this is from... Obviously, its me!
-    I want us to forever be happy with each other, I'll do everything for that, my love.
+    This site is a small piece of my heart.  
+    Tap the card 💌
   </p>
-  <div class="tap">Tap to open 💌</div>
+
+  <div class="tap">Tap to open</div>
 </div>
 
 <script>
 const cards = [
   {
-    title: "Hello my love 💜",
-    text: `You already know who this is from... Obviously, its me!
-I want us to forever be happy with each other, I'll do everything for that, my love.`,
+    title: "Hey my love 💜",
+    text: "This site is a small piece of my heart. Tap the card 💌",
     images: []
   },
   {
-    title: "I love you so much",
-    text: `I wish the words were enough to tell you how much I love you. That's impossible but I promise you, that I will do everything, EVERYTHING to always and forever keep you with me and make you the happiest girl in the universe, my love I love you SO MUCH!`,
-    images: ["finger-heart.jpg"]
+    title: "This is us 💚",
+    text: "Every moment with you feels like home.",
+    images: ["images/1.jpg"]
   },
   {
-    title: "Always Together!",
-    text: `My love, I know sometimes I can be really jealous, but I promise you, it's because I love you so much. You showed me, you gave me the whole world just by coming into my life, you gave my life a purpose, you showed me what real, true love is and I will NEVER, EVER let something bad happen to us. No matter what happens, we're always gonna find a way to stay together and don't let anything get in our way. I'll do anything for you, I'll give you the whole world my love I can sacrifice everything for you, so we can still and always be together! <3`,
-    images: ["ka-u-heart.jpg"]
+    title: "You mean everything",
+    text: "In every universe, in every life — I choose you.",
+    images: ["images/2.jpg"]
   },
   {
-    title: "When I first met you",
-    text: `Even at the very beginning, I was feeling something with you. I loved how we both loved always spending time with each other, even at the very beginning. It feels like we were destined to be together since the very beginning of when we were born and even at the very beginning of when the universe was created. It felt like the 2 sould that are bound for each other, finally found each other and now there's no way of something to get in their way, they're already spending their whole day with each other, that's all they want, is to always be with each other and that makes them happiest ever.`,
+    title: "Always",
+    text: "No matter what happens, I’m yours. Forever.",
+    images: ["images/3.jpg"]
+  },
+  {
+    title: "Endless love ✨",
+    text: "This is only the beginning of our story.",
     images: []
-  },
-  {
-    title: "Always & Forever 💜💚",
-    text: `I promise you that no matter what happens, I'll always choose to be with you, always make you the happiest in the whole universe. If I need to sacrifice whole universe for you and to be with you, I'll do it. I'll do everything for you mu love, my baby, my universe and let's promise that no matter what happens, we'll talk about everything and always, ALWAYS choose to be with each other, no matter what. My love for you is infinite, even more than that, it's breaking the laws of physics and everything. I love you so so so so muchhhhh!!! MWAHHHHH. ALWAYS and FOREVER TOGETHER`,
-    images: ["finger-heart.jpg", "ka-u-heart.jpg", "finger-couple.jpg"]
   }
 ];
 
 let i = 0;
+
 const titleEl = document.getElementById("title");
 const textEl = document.getElementById("text");
 const imagesEl = document.getElementById("images");
+const counterEl = document.getElementById("counter");
 const card = document.getElementById("card");
 
-card.onclick = () => {
-  i++;
-  if (i >= cards.length) return;
+function updateCounter() {
+  const left = cards.length - i - 1;
+  if (left > 0) {
+    counterEl.innerText = `💌 ${left} card${left > 1 ? "s" : ""} left`;
+  } else {
+    counterEl.style.display = "none";
+  }
+}
 
-  titleEl.innerText = cards[i].title;
-  textEl.innerText = cards[i].text;
+function renderCard() {
+  const c = cards[i];
+  titleEl.innerText = c.title;
+  textEl.innerText = c.text;
   imagesEl.innerHTML = "";
 
-  if (cards[i].images.length) {
-    imagesEl.className = "gallery";
-    cards[i].images.forEach(src => {
-      const img = document.createElement("div");
-      img.className = "heart-img";
-      img.style.backgroundImage = `url(${src})`;
+  if (c.images.length > 0) {
+    c.images.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.onerror = () => img.remove(); // fails safely
       imagesEl.appendChild(img);
     });
+  } else {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    imagesEl.appendChild(heart);
+  }
+
+  updateCounter();
+}
+
+card.onclick = () => {
+  if (i < cards.length - 1) {
+    i++;
+    renderCard();
   }
 };
 
-/* floating hearts */
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "float-heart";
-  h.innerText = "❤";
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.fontSize = Math.random() * 10 + 12 + "px";
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 6000);
-}, 500);
+renderCard();
 </script>
 
 </body>
