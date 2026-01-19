@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> <!-- Cute romantic font -->
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Pacifico&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Abi, I love you 💜</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
+  font-family: 'Sacramento', cursive; /* Main font for overall text */
+  color: white;
   margin: 0;
   height: 100vh;
   background: linear-gradient(135deg, #2b1247, #0b1f17);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: system-ui, sans-serif;
-  color: white;
 }
 
-/* CARD */
+/* CARD STYLING */
 .card {
   width: 330px;
   min-height: 460px;
@@ -31,16 +32,20 @@ body {
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease;
+  font-family: 'Pacifico', cursive; /* Font for card titles & text */
 }
 
-.card:active {
-  transform: scale(0.98);
+/* Add tiny floating hearts to each paragraph automatically */
+.card p::after {
+  content: " 💖";
+  animation: floatHearts 2s infinite alternate;
 }
 
-h2 {
-  color: #c8ffd9;
-  margin: 0;
+@keyframes floatHearts {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
 }
+
 
 /* COUNTER */
 #counter {
