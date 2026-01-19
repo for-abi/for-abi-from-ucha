@@ -6,9 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -45,7 +43,6 @@ body {
 
 .card h2 {
   color: #c8ffd9;
-  margin-bottom: 10px;
 }
 
 .card p {
@@ -55,13 +52,21 @@ body {
 
 /* HEART IMAGE */
 .heart-img {
-  width: 120px;
-  height: 120px;
-  margin: 14px auto;
+  width: 110px;
+  height: 110px;
+  margin: 10px auto;
   background-size: cover;
   background-position: center;
-  clip-path: path("M60 110 C15 80 0 55 15 35 A25 25 0 0 1 60 40 A25 25 0 0 1 105 35 C120 55 105 80 60 110 Z");
+  clip-path: path("M55 105 C15 75 0 50 15 30 A25 25 0 0 1 55 35 A25 25 0 0 1 95 30 C110 50 95 75 55 105 Z");
   box-shadow: 0 0 25px rgba(255,120,200,0.45);
+}
+
+/* MULTI HEART GALLERY */
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .tap {
@@ -70,11 +75,10 @@ body {
 }
 
 /* FLOATING HEARTS */
-.heart {
+.float-heart {
   position: absolute;
   bottom: -20px;
   color: #ff8ad8;
-  font-size: 14px;
   animation: float 6s linear infinite;
   opacity: 0.6;
 }
@@ -90,13 +94,12 @@ body {
 
 <div class="card" id="card">
   <h2 id="title">Hello my love 💜</h2>
-  <div class="heart-img" id="image" style="display:none;"></div>
+  <div id="images"></div>
   <p id="text">
     You already know who this is from... Obviously, its me!
     I want us to forever be happy with each other, I'll do everything for that, my love.
-    Tap the card 💌
   </p>
-  <div class="tap">Tap to open</div>
+  <div class="tap">Tap to open 💌</div>
 </div>
 
 <script>
@@ -105,34 +108,34 @@ const cards = [
     title: "Hello my love 💜",
     text: `You already know who this is from... Obviously, its me!
 I want us to forever be happy with each other, I'll do everything for that, my love.`,
-    img: null
+    images: []
   },
   {
     title: "I love you so much",
     text: `I wish the words were enough to tell you how much I love you. That's impossible but I promise you, that I will do everything, EVERYTHING to always and forever keep you with me and make you the happiest girl in the universe, my love I love you SO MUCH!`,
-    img: "img1.jpg"
+    images: ["finger-heart.jpg"]
   },
   {
     title: "Always Together!",
     text: `My love, I know sometimes I can be really jealous, but I promise you, it's because I love you so much. You showed me, you gave me the whole world just by coming into my life, you gave my life a purpose, you showed me what real, true love is and I will NEVER, EVER let something bad happen to us. No matter what happens, we're always gonna find a way to stay together and don't let anything get in our way. I'll do anything for you, I'll give you the whole world my love I can sacrifice everything for you, so we can still and always be together! <3`,
-    img: "img2.jpg"
+    images: ["ka-u-heart.jpg"]
   },
   {
     title: "When I first met you",
     text: `Even at the very beginning, I was feeling something with you. I loved how we both loved always spending time with each other, even at the very beginning. It feels like we were destined to be together since the very beginning of when we were born and even at the very beginning of when the universe was created. It felt like the 2 sould that are bound for each other, finally found each other and now there's no way of something to get in their way, they're already spending their whole day with each other, that's all they want, is to always be with each other and that makes them happiest ever.`,
-    img: null
+    images: []
   },
   {
-    title: "Always & Forever",
+    title: "Always & Forever 💜💚",
     text: `I promise you that no matter what happens, I'll always choose to be with you, always make you the happiest in the whole universe. If I need to sacrifice whole universe for you and to be with you, I'll do it. I'll do everything for you mu love, my baby, my universe and let's promise that no matter what happens, we'll talk about everything and always, ALWAYS choose to be with each other, no matter what. My love for you is infinite, even more than that, it's breaking the laws of physics and everything. I love you so so so so muchhhhh!!! MWAHHHHH. ALWAYS and FOREVER TOGETHER`,
-    img: "img3.jpg"
+    images: ["finger-heart.jpg", "ka-u-heart.jpg", "finger-couple.jpg"]
   }
 ];
 
 let i = 0;
 const titleEl = document.getElementById("title");
 const textEl = document.getElementById("text");
-const imgEl = document.getElementById("image");
+const imagesEl = document.getElementById("images");
 const card = document.getElementById("card");
 
 card.onclick = () => {
@@ -141,19 +144,23 @@ card.onclick = () => {
 
   titleEl.innerText = cards[i].title;
   textEl.innerText = cards[i].text;
+  imagesEl.innerHTML = "";
 
-  if (cards[i].img) {
-    imgEl.style.display = "block";
-    imgEl.style.backgroundImage = `url(${cards[i].img})`;
-  } else {
-    imgEl.style.display = "none";
+  if (cards[i].images.length) {
+    imagesEl.className = "gallery";
+    cards[i].images.forEach(src => {
+      const img = document.createElement("div");
+      img.className = "heart-img";
+      img.style.backgroundImage = `url(${src})`;
+      imagesEl.appendChild(img);
+    });
   }
 };
 
 /* floating hearts */
 setInterval(() => {
   const h = document.createElement("div");
-  h.className = "heart";
+  h.className = "float-heart";
   h.innerText = "❤";
   h.style.left = Math.random() * 100 + "vw";
   h.style.fontSize = Math.random() * 10 + 12 + "px";
