@@ -5,108 +5,119 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Abi 💜💚</title>
 <style>
-    body {
-        margin: 0;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+        height: 100%;
         font-family: 'Arial', sans-serif;
-        background: linear-gradient(135deg, #2b0032, #1b1b2f);
+        background: #1b1b2f;
         color: #a0ff7a;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 100vh;
-        text-align: center;
-        overflow-x: hidden;
-    }
-
-    h1 {
-        font-size: 2.5em;
-        margin-bottom: 0.2em;
-        color: #a0ff7a;
-    }
-
-    .cards-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 2em;
+        overflow: hidden;
     }
 
     .card {
-        background-color: #3a0f4d;
-        width: 200px;
-        height: 120px;
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: #a0ff7a;
-        font-size: 1em;
-        transition: transform 0.3s, background-color 0.3s;
-        position: relative;
-        perspective: 1000px;
-    }
-
-    .card.open {
-        transform: rotateY(180deg);
-        background-color: #1b1b2f;
-    }
-
-    .card-front, .card-back {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
+        width: 90%;
+        max-width: 500px;
+        height: 70%;
+        background: #3a0f4d;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 15px;
-        border-radius: 15px;
-    }
-
-    .card-front {
+        text-align: center;
+        padding: 30px;
         font-size: 1.2em;
+        cursor: pointer;
+        transition: transform 0.5s ease, opacity 0.5s ease;
     }
 
-    .card-back {
-        transform: rotateY(180deg);
-        font-size: 1em;
-        line-height: 1.4em;
+    .card h1 {
+        margin-bottom: 20px;
+        color: #a0ff7a;
     }
 
-    .footer {
-        margin-top: 3em;
-        font-size: 0.9em;
+    .card.show {
+        transform: translateY(0);
+        opacity: 1;
+        z-index: 10;
+    }
+
+    .card.hide-left {
+        transform: translateX(-150%) rotate(-10deg);
+        opacity: 0;
+        z-index: 1;
+    }
+
+    .card.hide-right {
+        transform: translateX(150%) rotate(10deg);
+        opacity: 0;
+        z-index: 1;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 20px;
         color: #7aff99;
+        font-size: 0.9em;
     }
 </style>
 </head>
 <body>
+
+<div class="card show">
     <h1>Hi Abi 💜💚</h1>
-    <p>Click each card to see what I wrote just for you 🖤</p>
+    <p>Click or swipe this card to open it and see my first letter.</p>
+</div>
 
-    <div class="cards-container">
-        <div class="card" onclick="this.classList.toggle('open')">
-            <div class="card-front">💌 Letter 1</div>
-            <div class="card-back">Every moment with you feels like magic. You light up my world.</div>
-        </div>
-        <div class="card" onclick="this.classList.toggle('open')">
-            <div class="card-front">💌 Letter 2</div>
-            <div class="card-back">I love the way you laugh, the way you smile, the way you are.</div>
-        </div>
-        <div class="card" onclick="this.classList.toggle('open')">
-            <div class="card-front">💌 Letter 3</div>
-            <div class="card-back">Even on quiet days, I feel close to you. You are my peace.</div>
-        </div>
-        <!-- Add more cards here -->
-    </div>
+<div class="card">
+    <p>Every moment with you feels like magic. You light up my world just by being you.</p>
+</div>
 
-    <div class="footer">
-        Made with all my love ❤️
-    </div>
+<div class="card">
+    <p>I love your laugh, your smile, and the way your mind works. You’re perfect to me.</p>
+</div>
+
+<div class="card">
+    <p>Even quiet moments with you are full of warmth. I never knew peace until I met you.</p>
+</div>
+
+<div class="card">
+    <p>This last card is special — I don’t treat anyone the way I treat you. The world is yours if you want it ❤️</p>
+</div>
+
+<footer>Made with all my love 💌</footer>
+
+<script>
+    let cards = document.querySelectorAll('.card');
+    let current = 0;
+
+    function showNextCard() {
+        if (current < cards.length - 1) {
+            cards[current].classList.remove('show');
+            cards[current].classList.add('hide-left'); // slide out
+            current++;
+            cards[current].classList.add('show'); // show next
+        }
+    }
+
+    cards.forEach(card => {
+        card.addEventListener('click', showNextCard);
+        // Optional: support swipe with touch devices
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        card.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; });
+        card.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            if (touchendX < touchstartX - 50) { showNextCard(); } // swipe left
+            if (touchendX > touchstartX + 50) { showNextCard(); } // swipe right
+        });
+    });
+</script>
 
 </body>
 </html>
