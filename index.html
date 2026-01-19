@@ -6,68 +6,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #2b1247, #0b1f17);
+  background: radial-gradient(circle at top, #34155b, #0b1f17);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", sans-serif;
   color: white;
+  overflow: hidden;
 }
 
 /* CARD */
 .card {
-  width: 320px;
-  min-height: 420px;
+  width: 340px;
+  min-height: 460px;
   background: linear-gradient(145deg, #4b1f6f, #1a3d2f);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 0 30px rgba(0,255,180,0.35);
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 0 40px rgba(0,255,180,0.35);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
   cursor: pointer;
+  animation: appear 0.6s ease;
+}
+
+@keyframes appear {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .card h2 {
   color: #c8ffd9;
+  margin-bottom: 10px;
+}
+
+.card p {
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* HEART IMAGE */
+.heart-img {
+  width: 120px;
+  height: 120px;
+  margin: 14px auto;
+  background-size: cover;
+  background-position: center;
+  clip-path: path("M60 110 C15 80 0 55 15 35 A25 25 0 0 1 60 40 A25 25 0 0 1 105 35 C120 55 105 80 60 110 Z");
+  box-shadow: 0 0 25px rgba(255,120,200,0.45);
 }
 
 .tap {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   opacity: 0.7;
 }
 
-/* HEART IMAGE PLACEHOLDER */
+/* FLOATING HEARTS */
 .heart {
-  width: 90px;
-  height: 90px;
-  margin: 15px auto;
-  background: pink;
-  clip-path: polygon(
-    50% 90%,
-    100% 40%,
-    75% 10%,
-    50% 25%,
-    25% 10%,
-    0 40%
-  );
+  position: absolute;
+  bottom: -20px;
+  color: #ff8ad8;
+  font-size: 14px;
+  animation: float 6s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-110vh); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- CARD ALWAYS VISIBLE -->
 <div class="card" id="card">
   <h2 id="title">Hello my love 💜</h2>
-  <div class="heart" id="heart"></div>
+  <div class="heart-img" id="image" style="display:none;"></div>
   <p id="text">
     You already know who this is from... Obviously, its me!
-    I want us to forever be happy with each other, I'll do everything for that, my love.  
+    I want us to forever be happy with each other, I'll do everything for that, my love.
     Tap the card 💌
   </p>
   <div class="tap">Tap to open</div>
@@ -76,48 +102,64 @@ body {
 <script>
 const cards = [
   {
-    title: "Hey my love 💜",
-    text: "You already know who this is from... Obviously, its me!
-    I want us to forever be happy with each other, I'll do everything for that, my love.  
-    Tap the card 💌",
-    heart: true
+    title: "Hello my love 💜",
+    text: `You already know who this is from... Obviously, its me!
+I want us to forever be happy with each other, I'll do everything for that, my love.`,
+    img: null
   },
   {
     title: "I love you so much",
-    text: "I wish the words were enough to tell you how much I love you. That's impossible but I promise you, that I will do everything, EVERYTHING to always and forever keep you with me and make you the happiest girl in the universe, my love I love you SO MUCH!",
-    heart: false
+    text: `I wish the words were enough to tell you how much I love you. That's impossible but I promise you, that I will do everything, EVERYTHING to always and forever keep you with me and make you the happiest girl in the universe, my love I love you SO MUCH!`,
+    img: "img1.jpg"
   },
   {
     title: "Always Together!",
-    text: "My love, I know sometimes I can be really jealous, but I promise you, it's because I love you so much. You showed me, you gave me the whole world just by coming into my life, you gave my life a purpose, you showed me what real, true love is and I will NEVER, EVER let something bad happen to us. No matter what happens, we're always gonna find a way to stay together and don't let anything get in our way. I'll do anything for you, I'll give you the whole world my love I can sacrifice everything for you, so we can still and always be together! <3",
-    heart: true
+    text: `My love, I know sometimes I can be really jealous, but I promise you, it's because I love you so much. You showed me, you gave me the whole world just by coming into my life, you gave my life a purpose, you showed me what real, true love is and I will NEVER, EVER let something bad happen to us. No matter what happens, we're always gonna find a way to stay together and don't let anything get in our way. I'll do anything for you, I'll give you the whole world my love I can sacrifice everything for you, so we can still and always be together! <3`,
+    img: "img2.jpg"
   },
   {
     title: "When I first met you",
-    text: "Even at the very beginning, I was feeling something with you. I loved how we both loved always spending time with each other, even at the very beginning. It feels like we were destined to be together since the very beginning of when we were born and even at the very beginning of when the universe was created. It felt like the 2 sould that are bound for each other, finally found each other and now there's no way of something to get in their way, they're already spending their whole day with each other, that's all they want, is to always be with each other and that makes them happiest ever.",
-    heart: false
+    text: `Even at the very beginning, I was feeling something with you. I loved how we both loved always spending time with each other, even at the very beginning. It feels like we were destined to be together since the very beginning of when we were born and even at the very beginning of when the universe was created. It felt like the 2 sould that are bound for each other, finally found each other and now there's no way of something to get in their way, they're already spending their whole day with each other, that's all they want, is to always be with each other and that makes them happiest ever.`,
+    img: null
   },
   {
-    title: "",
-    text: "I promise you that no matter what happens, I'll always choose to be with you, always make you the happiest in the whole universe. If I need to sacrifice whole universe for you and to be with you, I'll do it. I'll do everything for you mu love, my baby, my universe and let's promise that no matter what happens, we'll talk about everything and always, ALWAYS choose to be with each other, no matter what. My love for you is infinite, even more than that, it's breaking the laws of physics and everything. I love you so so so so muchhhhh!!! MWAHHHHH. ALWAYS and FOREVER TOGETHER",
-    heart: true
+    title: "Always & Forever",
+    text: `I promise you that no matter what happens, I'll always choose to be with you, always make you the happiest in the whole universe. If I need to sacrifice whole universe for you and to be with you, I'll do it. I'll do everything for you mu love, my baby, my universe and let's promise that no matter what happens, we'll talk about everything and always, ALWAYS choose to be with each other, no matter what. My love for you is infinite, even more than that, it's breaking the laws of physics and everything. I love you so so so so muchhhhh!!! MWAHHHHH. ALWAYS and FOREVER TOGETHER`,
+    img: "img3.jpg"
   }
 ];
 
 let i = 0;
-const title = document.getElementById("title");
-const text = document.getElementById("text");
-const heart = document.getElementById("heart");
+const titleEl = document.getElementById("title");
+const textEl = document.getElementById("text");
+const imgEl = document.getElementById("image");
 const card = document.getElementById("card");
 
 card.onclick = () => {
   i++;
   if (i >= cards.length) return;
 
-  title.innerText = cards[i].title;
-  text.innerText = cards[i].text;
-  heart.style.display = cards[i].heart ? "block" : "none";
+  titleEl.innerText = cards[i].title;
+  textEl.innerText = cards[i].text;
+
+  if (cards[i].img) {
+    imgEl.style.display = "block";
+    imgEl.style.backgroundImage = `url(${cards[i].img})`;
+  } else {
+    imgEl.style.display = "none";
+  }
 };
+
+/* floating hearts */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerText = "❤";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = Math.random() * 10 + 12 + "px";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}, 500);
 </script>
 
 </body>
