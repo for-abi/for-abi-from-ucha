@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> <!-- Cute romantic font -->
-<link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap&v=3" rel="stylesheet">
+<head>
+<!-- Elegant Victorian-style fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Abi, I love you 💜</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-  font-family: 'Sacramento', cursive; /* Main font for overall text */
-  color: white;
+  font-family: 'Playfair Display', serif; /* Elegant serif font */
+  color: #eae0d5; /* Soft, warm parchment color */
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #2b1247, #0b1f17);
+  /* Deep Victorian green to deep purple gradient */
+  background: linear-gradient(135deg, #1b3022, #291b30);
+  background-image: 
+    radial-gradient(circle at top left, rgba(142, 114, 189, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at bottom right, rgba(46, 77, 60, 0.5) 0%, transparent 50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,74 +25,106 @@ body {
 
 /* CARD STYLING */
 .card {
-  width: 330px;
-  min-height: 460px;
-  background: linear-gradient(145deg, #4b1f6f, #1a3d2f);
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: 0 0 35px rgba(0,255,180,0.35);
+  width: 340px;
+  min-height: 480px;
+  /* Rich wisteria purple and forest green mix */
+  background: linear-gradient(145deg, #3a2845, #1e3329);
+  border: 2px solid #b89947; /* Antique gold border */
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 40px rgba(184, 153, 71, 0.2), inset 0 0 15px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  font-family: 'Pacifico', cursive; /* Font for card titles & text */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Add tiny floating hearts to each paragraph automatically */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 50px rgba(184, 153, 71, 0.3), inset 0 0 20px rgba(0,0,0,0.6);
+}
+
+/* Corner decorations for an exclusive Victorian feel */
+.card::before, .card::after {
+  content: "❧"; /* Antique leaf flourish */
+  position: absolute;
+  color: #b89947;
+  font-size: 24px;
+  opacity: 0.6;
+}
+.card::before { top: 10px; left: 15px; }
+.card::after { bottom: 10px; right: 15px; transform: rotate(180deg); }
+
+h2 {
+  font-family: 'Great Vibes', cursive; /* Romantic script font */
+  font-size: 2.4rem;
+  color: #d4c1ed; /* Soft wisteria purple */
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+#text {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  font-style: italic;
+  margin-top: 15px;
+}
+
+/* Add tiny floating leaves/wisteria instead of standard hearts */
 .card p::after {
-  content: " 💗";
-  animation: floatHearts 2s infinite alternate;
+  content: " 🌿";
+  display: inline-block;
+  animation: floatLeaves 2.5s infinite alternate ease-in-out;
 }
 
-@keyframes floatHearts {
-  from { transform: translateY(0); }
-  to { transform: translateY(-5px); }
+@keyframes floatLeaves {
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(-4px) rotate(10deg); }
 }
-
 
 /* COUNTER */
 #counter {
-  font-size: 0.75rem;
-  opacity: 0.75;
-  margin-bottom: 6px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  color: #b89947; /* Antique gold */
+  letter-spacing: 1px;
+  margin-bottom: 10px;
 }
 
 /* IMAGE AREA */
 #images img {
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 50%;
-  margin: 10px auto;
+  border: 3px solid #b89947; /* Gold frame around pictures */
+  margin: 15px auto;
   display: block;
-  box-shadow: 0 0 15px rgba(0,255,180,0.4);
+  box-shadow: 0 0 20px rgba(142, 114, 189, 0.5); /* Wisteria glow */
 }
 
-/* HEART SHAPE (optional fallback) */
+/* HEART SHAPE (styled like an antique cameo) */
 .heart {
-  width: 90px;
-  height: 90px;
-  margin: 10px auto;
-  background: pink;
-  clip-path: polygon(
-    50% 90%,
-    100% 40%,
-    75% 10%,
-    50% 25%,
-    25% 10%,
-    0 40%
-  );
+  width: 100px;
+  height: 100px;
+  margin: 15px auto;
+  background: #8e72bd; /* Wisteria purple */
+  clip-path: polygon(50% 90%, 100% 40%, 75% 10%, 50% 25%, 25% 10%, 0 40%);
+  filter: drop-shadow(0 0 10px rgba(184, 153, 71, 0.4));
 }
 
 /* TAP TEXT */
 .tap {
-  font-size: 0.8rem;
-  opacity: 0.7;
-}
-    body, .card, h2, p {
-  font-family: 'Macondo', cursive !important;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #b89947;
+  opacity: 0.8;
+  margin-top: 15px;
 }
 </style>
 </head>
